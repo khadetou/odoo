@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Hide Enterprise Modules</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #714B67;
+            border-bottom: 3px solid #714B67;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #875A7B;
+            margin-top: 30px;
+        }
+        .feature-list {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .feature-list li {
+            margin: 10px 0;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+        code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hide Enterprise Modules</h1>
+    
+    <p>
+        This module automatically filters out and hides Enterprise-only modules from the Apps menu 
+        when running Odoo 19 Community Edition, providing a cleaner and more relevant interface.
+    </p>
+
+    <h2>Key Features</h2>
+    <div class="feature-list">
+        <ul>
+            <li><strong>Automatic Detection</strong>: Identifies Enterprise modules based on license type (OEEL-1) and to_buy flag</li>
+            <li><strong>Clean Interface</strong>: Shows only Community Edition compatible modules in the Apps menu</li>
+            <li><strong>Non-Breaking</strong>: Does not interfere with existing functionality or installed modules</li>
+            <li><strong>Transparent</strong>: Advanced users can still view Enterprise modules using search filters</li>
+            <li><strong>Safe</strong>: Only affects display, not module loading mechanism</li>
+        </ul>
+    </div>
+
+    <h2>How It Works</h2>
+    <p>
+        The module extends the <code>ir.module.module</code> model with a computed field 
+        <code>is_enterprise_only</code> that automatically identifies Enterprise modules. 
+        The Apps menu is then filtered to hide these modules by default.
+    </p>
+
+    <div class="highlight">
+        <strong>Enterprise Module Detection:</strong><br>
+        A module is considered Enterprise-only if it has license = 'OEEL-1' OR to_buy = True
+    </div>
+
+    <h2>Installation</h2>
+    <ol>
+        <li>This module should already be in your <code>custom/addons</code> directory</li>
+        <li>Update the Apps list (may require Developer Mode)</li>
+        <li>Search for "Hide Enterprise Modules"</li>
+        <li>Click "Activate"</li>
+    </ol>
+
+    <h2>Usage</h2>
+    <p>
+        Once installed, the module works automatically. The Apps menu will only show 
+        Community Edition compatible modules.
+    </p>
+    <p>
+        <strong>Advanced users</strong> can use the search filters to view Enterprise modules:
+    </p>
+    <ul>
+        <li><strong>Community Only</strong>: Shows only Community modules (default)</li>
+        <li><strong>Enterprise Only</strong>: Shows Enterprise modules for reference</li>
+    </ul>
+
+    <h2>Compatibility</h2>
+    <ul>
+        <li>Odoo Version: 19.0 Community Edition</li>
+        <li>License: LGPL-3</li>
+        <li>Dependencies: base (core module only)</li>
+    </ul>
+
+    <h2>Support</h2>
+    <p>
+        This is a community module designed to improve the user experience in Odoo Community Edition. 
+        It can be safely installed or uninstalled at any time without affecting your data or other modules.
+    </p>
+</body>
+</html>
+

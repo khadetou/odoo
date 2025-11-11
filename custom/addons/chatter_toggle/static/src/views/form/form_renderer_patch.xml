@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Extend the FormRenderer template to add floating toggle button -->
+    <t t-name="chatter_toggle.FormRenderer" t-inherit="web.FormRenderer" t-inherit-mode="extension">
+        
+        <!-- Add class to chatter container based on visibility state -->
+        <xpath expr="//div[hasclass('o-mail-Form-chatter')]" position="attributes">
+            <attribute name="t-att-class" add="__comp__.chatterContainerClass" separator=" "/>
+        </xpath>
+        
+        <!-- Add floating button when chatter is hidden -->
+        <xpath expr="//div[hasclass('o_form_renderer')]" position="inside">
+            <div t-if="!__comp__.chatterVisibilityState.isVisible and __comp__.mailStore" 
+                 class="o-chatter-floating-toggle">
+                <button 
+                    class="btn btn-primary o-chatter-floating-btn" 
+                    title="Show Chatter"
+                    t-on-click="() => __comp__.env.bus.trigger('chatter:restore')"
+                >
+                    <i class="fa fa-comments"/>
+                </button>
+            </div>
+        </xpath>
+        
+    </t>
+
+</templates>
+

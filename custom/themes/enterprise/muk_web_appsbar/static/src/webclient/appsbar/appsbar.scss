@@ -1,0 +1,181 @@
+.mk_apps_sidebar_panel {
+    @include mk-disable-scrollbar();
+    background-color: $mk-appbar-background;
+    width: var(--mk-sidebar-width, 0);
+    overflow-y: auto;
+    transition: width 200ms ease-in-out;
+
+    .mk_apps_sidebar {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+	    white-space: nowrap;
+
+	    // Toggle button at the top
+	    .mk_apps_sidebar_toggle {
+	        padding: 8px;
+	        text-align: center;
+	        border-bottom: 1px solid rgba($mk-appbar-color, 0.1);
+
+	        .mk_sidebar_toggle_btn {
+	            background: transparent;
+	            border: 1px solid rgba($mk-appbar-color, 0.3);
+	            color: $mk-appbar-color;
+	            padding: 6px 10px;
+	            border-radius: 4px;
+	            cursor: pointer;
+	            transition: all 0.2s ease;
+	            width: 100%;
+
+	            &:hover:not(:disabled) {
+	                background: rgba($mk-appbar-active, 0.5);
+	                border-color: $mk-appbar-color;
+	                color: $mk-appbar-color;
+	            }
+
+	            &:disabled {
+	                opacity: 0.5;
+	                cursor: not-allowed;
+	            }
+
+	            i {
+	                font-size: 14px;
+	            }
+	        }
+	    }
+
+	    .mk_apps_sidebar_menu {
+	    	padding: 0;
+	    	flex: 1;
+	    	overflow-y: auto;
+
+		    > li > a {
+		        cursor: pointer;
+	            font-size: 13px;
+	            font-weight: 300;
+	            overflow: hidden;
+	            padding: 8px 11px;
+	            text-decoration: none;
+	            color: $mk-appbar-color;
+	            text-overflow: ellipsis;
+
+	            .mk_apps_sidebar_icon {
+				    width: 22px;
+				    height: 22px;
+	    			margin-right: 5px;
+				}
+		    }
+
+	        > li.active > a {
+			    background: $mk-appbar-active;
+	        }
+
+	        > li:hover > a {
+			    background: $mk-appbar-active;
+	        }
+	    }
+	}
+}
+
+.mk_sidebar_type_large {
+	--mk-sidebar-width: #{$mk-sidebar-large-width};
+}
+
+.mk_sidebar_type_small {
+	--mk-sidebar-width: #{$mk-sidebar-small-width};
+
+	.mk_apps_sidebar_name {
+		display: none;
+	}
+
+	.mk_apps_sidebar_icon {
+		margin-right: 0 !important;
+	}
+
+   	.mk_apps_sidebar_logo {
+		display: none;
+	}
+
+	.mk_sidebar_toggle_btn {
+		padding: 6px !important;
+		min-width: auto;
+	}
+}
+
+.mk_sidebar_type_invisible {
+	--mk-sidebar-width: 0;
+}
+
+// Floating toggle button (visible when sidebar is hidden)
+.mk_sidebar_floating_toggle {
+	position: fixed;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 1000;
+
+	.mk_sidebar_floating_btn {
+		background: $mk-appbar-background;
+		border: 1px solid rgba($mk-appbar-color, 0.3);
+		border-left: none;
+		border-radius: 0 4px 4px 0;
+		color: $mk-appbar-color;
+		padding: 12px 8px;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+
+		&:hover:not(:disabled) {
+			background: rgba($mk-appbar-active, 0.8);
+			padding-right: 12px;
+			color: $mk-appbar-color;
+		}
+
+		&:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
+
+		i {
+			font-size: 16px;
+		}
+	}
+}
+
+.editor_has_snippets_hide_backend_navbar,
+.o_home_menu_background,
+.o_fullscreen {
+	--mk-sidebar-width: 0;
+}
+
+.editor_has_snippets_hide_backend_navbar .mk_apps_sidebar_panel {
+    transition: width 300ms;
+}
+
+@include media-breakpoint-only(md) {
+	.mk_sidebar_type_large {
+		--mk-sidebar-width: #{$mk-sidebar-small-width};
+		.mk_apps_sidebar_name {
+			display: none;
+		}
+		.mk_apps_sidebar_icon {
+			margin-right: 0 !important;
+		}
+	   	.mk_apps_sidebar_logo {
+			display: none;
+		}
+	}
+}
+
+@include media-breakpoint-down(md) {
+	.mk_sidebar_type_large, .mk_sidebar_type_small {
+		--mk-sidebar-width: 0;
+	}
+}
+
+@media print {
+	.mk_sidebar_type_large, .mk_sidebar_type_small {
+		--mk-sidebar-width: 0;
+	}
+}

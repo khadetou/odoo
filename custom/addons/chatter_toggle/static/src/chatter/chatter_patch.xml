@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Extend the Chatter template to add toggle button -->
+    <t t-name="chatter_toggle.Chatter" t-inherit="mail.Chatter" t-inherit-mode="extension">
+        
+        <!-- Add toggle button to the right side of the topbar -->
+        <xpath expr="//div[hasclass('o-mail-Chatter-topbar')]" position="inside">
+            <div class="o-chatter-toggle-container ms-auto">
+                <button 
+                    class="btn btn-sm o-chatter-toggle-btn" 
+                    t-on-click="() => this._toggleChatterVisibility()"
+                    t-att-title="this.toggleTooltip"
+                    t-att-disabled="this.toggleState.isToggling"
+                >
+                    <i t-attf-class="fa {{ this.toggleIcon }}"/>
+                    <span class="o-chatter-toggle-text ms-1">
+                        <t t-if="this.toggleState.isVisible">Hide</t>
+                        <t t-else="">Show</t>
+                    </span>
+                </button>
+            </div>
+        </xpath>
+        
+    </t>
+
+</templates>
+

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 
+        Hide Enterprise Modules - View Modifications
+        
+        This file modifies the Apps menu views to automatically filter out
+        Enterprise-only modules in Odoo Community Edition.
+    -->
+
+    <!-- Inherit the Apps action to add domain filter -->
+    <record id="open_module_tree_hide_enterprise" model="ir.actions.act_window">
+        <field name="name">Apps</field>
+        <field name="res_model">ir.module.module</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('is_enterprise_only', '=', False)]</field>
+        <field name="context">{'search_default_app': 1}</field>
+        <field name="search_view_id" ref="base.view_module_filter"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                No module found!
+            </p>
+            <p>
+                You should try other search criteria.
+            </p>
+        </field>
+    </record>
+
+    <!-- Update the menu item to use our filtered action -->
+    <record id="base.menu_module_tree" model="ir.ui.menu">
+        <field name="action" ref="open_module_tree_hide_enterprise"/>
+    </record>
+
+    <!-- Extend the search view to add a filter for Enterprise modules (for advanced users) -->
+    <record id="view_module_filter_hide_enterprise" model="ir.ui.view">
+        <field name="name">ir.module.module.list.select.hide.enterprise</field>
+        <field name="model">ir.module.module</field>
+        <field name="inherit_id" ref="base.view_module_filter"/>
+        <field name="arch" type="xml">
+            <filter name="extra" position="after">
+                <separator/>
+                <filter name="community_only" string="Community Only" 
+                        domain="[('is_enterprise_only', '=', False)]"
+                        help="Show only Community Edition compatible modules"/>
+                <filter name="enterprise_only" string="Enterprise Only" 
+                        domain="[('is_enterprise_only', '=', True)]"
+                        help="Show only Enterprise Edition modules (hidden by default)"/>
+            </filter>
+        </field>
+    </record>
+
+    <!-- 
+        Inherit the kanban view to visually indicate if any Enterprise modules slip through
+        This is a safety measure and provides transparency
+    -->
+    <record id="module_view_kanban_hide_enterprise" model="ir.ui.view">
+        <field name="name">Apps Kanban - Hide Enterprise</field>
+        <field name="model">ir.module.module</field>
+        <field name="inherit_id" ref="base.module_view_kanban"/>
+        <field name="arch" type="xml">
+            <!-- Add the is_enterprise_only field to the kanban view -->
+            <field name="to_buy" position="after">
+                <field name="is_enterprise_only"/>
+            </field>
+            
+            <!-- 
+                Optionally add a visual indicator for Enterprise modules
+                (though they should be filtered out by the domain)
+            -->
+            <xpath expr="//main[@t-att-title='record.shortdesc.value']" position="attributes">
+                <attribute name="t-attf-class">me-4 #{record.is_enterprise_only.raw_value ? 'o_enterprise_module' : ''}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 
+        Inherit the list view to add the field
+        (mainly for debugging and admin purposes)
+    -->
+    <record id="module_tree_hide_enterprise" model="ir.ui.view">
+        <field name="name">ir.module.module.list.hide.enterprise</field>
+        <field name="model">ir.module.module</field>
+        <field name="inherit_id" ref="base.module_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="is_enterprise_only" optional="hide" groups="base.group_no_one"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
+

@@ -1,0 +1,148 @@
+// ============================================================================
+// Chatter Toggle Styles
+// ============================================================================
+
+// Toggle button in Chatter topbar
+.o-chatter-toggle-container {
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    
+    .o-chatter-toggle-btn {
+        background: transparent;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        color: inherit;
+        padding: 4px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        
+        &:hover:not(:disabled) {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        i {
+            font-size: 12px;
+        }
+        
+        .o-chatter-toggle-text {
+            font-size: 13px;
+            font-weight: 500;
+        }
+    }
+}
+
+// Hidden chatter container
+.o-mail-Form-chatter.o-chatter-hidden {
+    width: 0 !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    
+    // Hide all content when chatter is hidden
+    > * {
+        display: none !important;
+    }
+}
+
+// Visible chatter container (smooth transition)
+.o-mail-Form-chatter:not(.o-chatter-hidden) {
+    transition: all 0.3s ease-in-out;
+    opacity: 1;
+}
+
+// Floating toggle button (visible when chatter is hidden)
+.o-chatter-floating-toggle {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+    
+    .o-chatter-floating-btn {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: none;
+        
+        &:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        &:active {
+            transform: scale(0.95);
+        }
+        
+        i {
+            font-size: 24px;
+        }
+    }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+    .o-chatter-toggle-text {
+        display: none;
+    }
+    
+    .o-chatter-toggle-btn {
+        padding: 4px 8px !important;
+    }
+    
+    .o-chatter-floating-toggle {
+        right: 16px;
+        bottom: 16px;
+        
+        .o-chatter-floating-btn {
+            width: 48px;
+            height: 48px;
+            
+            i {
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+// Print styles - hide toggle buttons when printing
+@media print {
+    .o-chatter-toggle-container,
+    .o-chatter-floating-toggle {
+        display: none !important;
+    }
+    
+    .o-mail-Form-chatter.o-chatter-hidden {
+        display: none !important;
+    }
+}
+
+// Dark mode support (if applicable)
+@media (prefers-color-scheme: dark) {
+    .o-chatter-toggle-btn {
+        border-color: rgba(255, 255, 255, 0.1);
+        
+        &:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+    }
+}
+

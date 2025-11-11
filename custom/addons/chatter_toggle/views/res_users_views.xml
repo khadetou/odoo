@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Add Chatter Visible preference to user preferences form -->
+        <record id="view_users_form_simple_modif_chatter_toggle" model="ir.ui.view">
+            <field name="name">res.users.preferences.form.chatter_toggle</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='other_preferences']" position="inside">
+                    <field name="chatter_visible" 
+                           string="Show Chatter by Default"
+                           help="Show or hide the Chatter in form views by default"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+
